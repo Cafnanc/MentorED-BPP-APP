@@ -7,7 +7,6 @@ import *  as moment from 'moment';
 import { localKeys } from 'src/app/core/constants/localStorage.keys';
 import { Location } from '@angular/common';
 import { AnimationController } from '@ionic/angular';
-import { SafeHtmlPipe } from '../../shared/safe-html.pipe';
 
 @Component({
   selector: 'app-session-detail',
@@ -22,9 +21,9 @@ export class SessionDetailPage implements OnInit {
   isEnabled: boolean;
   startDate: any;
   endDate: any;
-  // summaryLink: any='https://docs.google.com/document/d/1mDiiRXr9PQmRF4VRvP900jpnmfPVMIQ5bkXnONT-5lU/edit#heading=h.pwbsjfwu47c8'
-  summaryLink: any = 'https://www.google.co.in/'
-  discordLink: any = 'https://web.whatsapp.com/'
+  summary: any
+  channelId: any
+  inviteLink: any
   showSummary:boolean = false
 
   constructor(private localStorage: LocalStorageService, private router: Router,
@@ -124,6 +123,9 @@ export class SessionDetailPage implements OnInit {
       this.detailData.data.startDate = readableStartDate;
       this.startDate = (response.startDate>0)?moment.unix(response.startDate).toLocaleString():this.startDate;
       this.endDate = (response.endDate>0)?moment.unix(response.endDate).toLocaleString():this.endDate;
+      this.summary=response.summary
+      this.channelId=response.channelId
+      this.inviteLink=response.inviteLink
     }
   }
 

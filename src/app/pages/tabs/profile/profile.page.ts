@@ -65,6 +65,27 @@ export class ProfilePage implements OnInit {
   sessionData={}
   user: any;
   visited:boolean;
+  credentialsList:any=[
+    {
+      type: "identity",
+      documentType: "Aadhar",
+      documentId: "123456789012",
+      url:"http://google.com",
+    },
+    {
+      type: "work",
+      experience:"5 years",
+      companyName: "Google Inc",
+      url:"http://www.google.com"
+    },
+    {
+      type:"skill",
+      skill:"B.Tech",
+      university:"Mumbai University",
+      rollNo:"123",
+      YOP:"2018"
+    }
+  ]
   constructor(public navCtrl: NavController, private profileService: ProfileService, private translate: TranslateService, private router: Router, private localStorage:LocalStorageService) { }
 
   ngOnInit() {
@@ -105,4 +126,10 @@ export class ProfilePage implements OnInit {
   feedback() {
     this.navCtrl.navigateForward([CommonRoutes.FEEDBACK]);
   }
+
+  refresh(){
+    console.log('REFRESH CALLED')
+  }
+
+
 }

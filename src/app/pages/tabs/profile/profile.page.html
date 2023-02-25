@@ -4,7 +4,7 @@
         <ion-refresher-content></ion-refresher-content>
     </ion-refresher>
     <div *ngIf="formData && formData.data">
-        <app-generic-profile-header [headerData]='formData.data'[buttonConfig]="buttonConfig" [showRole]="true"></app-generic-profile-header>
+        <app-generic-profile-header [headerData]='formData.data'[buttonConfig]="buttonConfig" [showRole]="true" (refresh)="refresh()"></app-generic-profile-header>
         <div *ngIf="showProfileDetails; else elseBlock">
             <ion-card *ngIf="formData?.data?.isAMentor" class="card-wrapper">
                 <ion-card-content class="padding-top-10">
@@ -19,10 +19,66 @@
                 </ion-card-content>
             </ion-card>
             <div class="details-wrapper">
-                <div class="field-wrapper">
+                <div class="field-wrapper" *ngIf="credentialsList.length>0">
                     <div class="details-section">
                       <p class="session-detail-heading">Credentials</p>
-                     <p class="value">Values...</p>
+                      <div *ngFor="let item of credentialsList">
+                        <div [ngSwitch]="item.type">
+                            <div *ngSwitchCase="'identity'" class="details-section credentials-block">
+                                <div class="credentials-type">Identity</div>
+                                <ion-row>
+                                    <ion-col class="card-header-config">Id type</ion-col>
+                                    <ion-col class="card-header-config">{{item.documentType}}</ion-col>
+                                </ion-row>
+                                <ion-row>
+                                    <ion-col class="card-header-config">Id number</ion-col>
+                                    <ion-col class="card-header-config">{{item.documentId}}</ion-col>
+                                </ion-row>
+                                <ion-row *ngIf="item.url">
+                                    <ion-col class="card-header-config">Document</ion-col>
+                                    <ion-col class="card-header-config"><a [href]="item.url">View</a></ion-col>
+                                </ion-row>
+                            </div>
+                            <div *ngSwitchCase="'skill'" class="details-section credentials-block">
+                                <div class="credentials-type">Skill</div>
+                                <ion-row>
+                                    <ion-col class="card-header-config">Course</ion-col>
+                                    <ion-col class="card-header-config">{{item.skill}}</ion-col>
+                                </ion-row>
+                                <ion-row>
+                                    <ion-col class="card-header-config">University</ion-col>
+                                    <ion-col class="card-header-config">{{item.university}}</ion-col>
+                                </ion-row>
+                                <ion-row>
+                                    <ion-col class="card-header-config">Roll number</ion-col>
+                                    <ion-col class="card-header-config">{{item.rollNo}}</ion-col>
+                                </ion-row>
+                                <ion-row>
+                                    <ion-col class="card-header-config">Year of passing</ion-col>
+                                    <ion-col class="card-header-config">{{item.YOP}}</ion-col>
+                                </ion-row>
+                                <ion-row *ngIf="item.url">
+                                    <ion-col class="card-header-config">Document</ion-col>
+                                    <ion-col class="card-header-config"><a [href]="item.url">View</a></ion-col>
+                                </ion-row>
+                            </div>
+                            <div *ngSwitchCase="'work'" class="details-section credentials-block">
+                                <div class="credentials-type">Work experience</div>
+                                <ion-row>
+                                    <ion-col class="card-header-config">Company name</ion-col>
+                                    <ion-col class="card-header-config">{{item.companyName}}</ion-col>
+                                </ion-row>
+                                <ion-row>
+                                    <ion-col class="card-header-config">Years of experience</ion-col>
+                                    <ion-col class="card-header-config">{{item.experience}}</ion-col>
+                                </ion-row>
+                                <ion-row *ngIf="item.url">
+                                    <ion-col class="card-header-config">Document</ion-col>
+                                    <ion-col class="card-header-config"><a [href]="item.url">View</a></ion-col>
+                                </ion-row>
+                            </div>
+                        </div>
+                    </div>
                     </div>
                 </div>
                 <app-generic-details [sessionData]='formData' isProfile="true"></app-generic-details>
