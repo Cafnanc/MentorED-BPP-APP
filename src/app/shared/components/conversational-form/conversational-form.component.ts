@@ -283,6 +283,19 @@ export class ConversationalFormComponent implements OnInit {
       name: "recommendedFor",
       "cf-label": "Block education officer",
       value: '{"label":"Block education officer","value":"beo"}'
+    },{
+      tag: "input",
+      type: "checkbox",
+      name: "recommendedFor",
+      "cf-label": "Cluster Officials",
+      value: '{value: "CO", label: "Cluster Officials"}'
+    },
+    {
+      tag: "input",
+      type: "checkbox",
+      name: "recommendedFor",
+      "cf-label": "Teacher",
+      value: '{value: "TE", label: "Teacher"}'
     },
     {
       tag: "input",
@@ -305,6 +318,20 @@ export class ConversationalFormComponent implements OnInit {
       name: "categories",
       "cf-label": "SQAA",
       value: '{"label":"SQAA", "value":"SQAA"}'
+    },
+    {
+      tag: "input",
+      type: "checkbox",
+      name: "categories",
+      "cf-label": "Communication",
+      value: '{"value": "communication","label": "Communication"}'
+    },
+    {
+      tag: "input",
+      type: "checkbox",
+      name: "categories",
+      "cf-label": "Professional Development",
+      value: '{"value": "professionalDevelopment","label": "Professional Development"}'
     },
     {
       tag: "input",
@@ -466,7 +493,7 @@ export class ConversationalFormComponent implements OnInit {
     setTimeout(async () => {
       this.formulario.remove()
       this.onSubmit.emit(formDataSerialized)
-    }, 3000)
+    }, 2000)
     this.arrayKeys.forEach((value: string) => {
       let i = 0;
       formDataSerialized[value].forEach((entry: any) => {
