@@ -24,14 +24,14 @@ ion-card{
     margin-top: 5%;
 }
 .details-wrapper{
-    margin-top: 10%;
+    margin-top: 5%;
 }
 ion-row{
     height: 40px;
 }
 
 .field-wrapper{
-    margin : 20px 25px 10px 15px
+    margin : 0px 25px 10px 15px
 }
 
 .value{
@@ -51,4 +51,17 @@ ion-row{
     padding: 10px;
     border-radius: 10px;
     margin: 0px !important;
+}
+
+.credentials-block{
+    margin: 10px 0px !important;
+    .credentials-type{
+        font-size: 14px;
+        font-weight: 700;
+        margin-bottom: 10px;
+        text-decoration-line: underline;
+    }
+    ion-row{
+        height: fit-content;
+    }
 }

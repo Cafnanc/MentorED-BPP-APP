@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, Input, OnInit, Output, ViewChild ,EventEmitter} from '@angular/core';
 import { NavController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
 import { ToastService, UtilService } from 'src/app/core/services';
@@ -17,12 +17,13 @@ export class GenericProfileHeaderComponent implements OnInit {
   @Input() headerData:any;
   @Input() buttonConfig:any;
   @Input() showRole:any;
+  @Output() refresh? = new EventEmitter();
   labels = ["CHECK_OUT_MENTOR","PROFILE_ON_MENTORED_EXPLORE_THE_SESSIONS"];
   showCredentials:boolean=false
-  credentialType:any='id'
+  credentialType:any='identity'
   idType:any='aadhaar'
-  isAadhaarVerified:boolean=false
-  isDigilockerVerified:boolean=false
+  isMentorVerified:boolean=false
+  selectedFile:any=''
   formData: JsonFormData = {
     controls: [
    {
@@ -44,7 +45,7 @@ export class GenericProfileHeaderComponent implements OnInit {
   };
 
   formControl:any={
-    name:'aadhaar',
+    name:'Label',
     label: 'Enter the id',
     value: '',
     class: 'ion-margin',
@@ -57,34 +58,19 @@ export class GenericProfileHeaderComponent implements OnInit {
   }
 
   skillsList:any=[
-    { label: 'Degree',value: 'degree' },
-    { label: 'B-Tech',value: 'btech' },
-    { label: 'BSc',value: 'bsc' },
-    { label: 'Mbbs',value: 'mbbs' },
+    { label: 'Degree',value: 'Degree' },
+    { label: 'B-Tech',value: 'B-Tech' },
+    { label: 'BSc',value: 'BSc' },
+    { label: 'Mbbs',value: 'Mbbs' },
   ]
 
   universityList:any=[
-    { label: 'Bangalore University',value: 'bangaloreUniversity' },
-    { label: 'Indian Institute of Science',value: 'iisc' },
-    { label: 'Anna university',value: 'annaUniversity' },
-    { label: 'University of Mysore',value: 'mysoreUniversity' },
+    { label: 'Bangalore University',value: 'Bangalore University' },
+    { label: 'Indian Institute of Science',value: 'Indian Institute of Science' },
+    { label: 'Anna university',value: 'Anna university' },
+    { label: 'University of Mysore',value: 'University of Mysore' },
   ]
 
-
-
-
-  idControl:any = {
-    name: 'id',
-    label: 'Enter your id',
-    value: '',
-    class: 'ion-margin',
-    type: 'text',
-    position: 'floating',
-    errorMessage:'Enter an id',
-    validators: {
-      required: true
-    },
-  }
   skillControl:any = [{
       name: 'skill',
       label: 'Select a skill',
@@ -124,7 +110,7 @@ export class GenericProfileHeaderComponent implements OnInit {
       },
     },
     {
-      name: 'year',
+      name: 'YOP',
       label: 'Year of passing',
       value: '',
       class: 'ion-margin',
@@ -167,21 +153,8 @@ export class GenericProfileHeaderComponent implements OnInit {
     }
 ]
 
-  genericControl:{
-    name: 'Label',
-    label: 'Enter the id',
-    value: '',
-    class: 'ion-margin',
-    type: 'text',
-    position: 'floating',
-    errorMessage:'Enter a valid id',
-    validators: {
-      required: true,
-    },
-  }
-
   proofList:any=[
-    {name:'Identity',value:'id'},{name:'Skill',value:'skill'},{name:'Work',value:'work'}
+    {name:'Identity',value:'identity'},{name:'Skill',value:'skill'},{name:'Work',value:'work'}
   ]
   idsList:any=[
     {name:'Aadhaar',value:'aadhaar'},{name:'Voter Id',value:'voter'},{name:'Driving License',value:'license'}
@@ -256,42 +229,29 @@ export class GenericProfileHeaderComponent implements OnInit {
 
   onSelect(event){
     this.formData.controls=[]
+    this.selectedFile=''
     console.log("VALUE: ",event.target.value)
     switch(event.target.value){
-      case 'id':
-        // let validator=
-        // form['name']='aadhaar',
-        // form['label']='Aadhaar Id'
-        // form['validators']={minLength: 12, maxLength: 12, pattern:'^[0-9]*$'}
-        this.idType=''
-        this.formData.controls.push(this.genericControl)
-                
+      case 'identity':
+        this.idType='aadhaar'
+        let validator={required:true, minLength: 12, maxLength: 12, pattern:'^[0-9]*$'}
+        this.formData.controls.push(this.formPrefiller('aadhaar','Enter id',validator))         
       break;
       case 'skill':
-        // form['name']='skills',
-        // form['label']='Select skills'
-        // this.formData.controls.push(this.formPrefiller('skills','Select skills',null,this.skillsList,'select'))
-        // this.formData.controls.push(this.formPrefiller('university','Select university',null,this.universityList,'select'))
         this.formData.controls=this.skillControl
       break;
       case 'work':
-        // form['name']='work',
-        // form['label']='Enter Work Id'
-        // this.formData.controls.push(this.formPrefiller('work','Enter work id'))
         this.formData.controls = this.workControl
       break;
     }
     this.credentialType=event.target.value
   }
 
-  submit(type){
-    this.form1.onSubmit();
-    console.log('FORM VALUE: ',this.form1.myForm.value)
-    this.close()
-  }
+
 
   onIdSelect(event){
     this.formData.controls=[]
+    this.selectedFile=''
     let validator:any={required:true}
     switch(event.target.value){
       case 'aadhaar':
@@ -306,23 +266,21 @@ export class GenericProfileHeaderComponent implements OnInit {
       break;
     }
     this.idType=event.target.value
-    console.log('ID VAL:',event.target.value)
 
   }
 
   selectFile() {
-    console.log('TRIGGER CLICKED')
     let element = document.getElementById('upload') as HTMLInputElement;
     element.click();
   }
 
   uploadFile(event){
-    console.log('UPLOAD FILE',event.target.files[0])
+    this.selectedFile = event.target.files[0]
   }
 
   close(){
     this.showCredentials=false
-    this.credentialType='id'
+    this.credentialType='identity'
     this.idType=''
     this.formData.controls=[]
   }
@@ -344,4 +302,30 @@ export class GenericProfileHeaderComponent implements OnInit {
     return form
   }
 
+  submit(type){
+    this.form1.onSubmit();
+    let data={type:type, userId:this.headerData._id}
+    let formData = this.form1.myForm.value
+    switch(type){
+      case 'identity':
+        data['documentType']=this.idType,
+        data['documentId']=formData[this.idType]
+                
+      break;
+      case 'skill':
+        data={...data,...formData}
+        data['skill'] = formData.skill[0].value
+        data['university'] = formData.university[0].value
+      break;
+      case 'work':
+        data={...data,...formData}
+      break;
+    }
+    if(this.selectedFile){
+      data['url'] = this.selectedFile
+    }
+    console.log('DATA TO SUBMIT: ',data)
+    this.refresh.emit()
+    this.close()
+  }
 }
