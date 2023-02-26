@@ -14,12 +14,12 @@ DEPENDENCIES
 
 * Ionic:
 
-   Ionic CLI                     : 5.4.16 (/usr/local/lib/node_modules/ionic)
-   Ionic Framework               : @ionic/angular 6.5.6
-   @angular-devkit/build-angular : 13.2.6
-   @angular-devkit/schematics    : 13.2.6
-   @angular/cli                  : 13.2.6
-   @ionic/angular-toolkit        : 6.1.0
+   Ionic CLI                     : 5.4.16 (/usr/local/lib/node_modules/ionic)                                                    
+   Ionic Framework               : @ionic/angular 6.5.6                                                      
+   @angular-devkit/build-angular : 13.2.6                                                         
+   @angular-devkit/schematics    : 13.2.6                                                         
+   @angular/cli                  : 13.2.6                                                                 
+   @ionic/angular-toolkit        : 6.1.0                                                                  
 
 
 * Capacitor:
