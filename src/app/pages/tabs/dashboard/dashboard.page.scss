@@ -1,58 +1,76 @@
-.main-wrapper{
-    margin : 20px 25px 0px 25px
+.page-intro {
+    display: inline-flex;
+    padding-left: 20px !important;
+    overflow: scroll;
 }
-
-.empty-state-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100%;
-    margin-top: 40%;
+h3{
+    margin: 25px 0px 10px 15px;
+    font-size: 24px;
 }
-.dashboard-title {
-    margin: 0;
+.welcome-note{
+    font-size: 19px;
+    padding: 8px 8px 8px 18px;
+}
+.search-bar{
+    --border-radius:25px;
+    --icon-color:var(--ion-color-primary);
+    font-size:16px;
+    margin-top: 10px;
+    height: fit-content;
+}
+.segment-div{
+    margin: 2px 4px;
+    ion-button{
+        --ripple-color:var(--gray)
+    }
+}
+.segment-button{
+    --border-radius:25px;
+    color: black;
+    --border-color:var(--gray);
+    height: 45px;
+    font-size: small;
+}
+.font-bold{
+    --border-radius:25px;
+    color: black;
+    --border-color:var(--ion-color-primary);
+    height: 45px;
+    font-size: 18px;
+}
+.session-sqr-card{
+    text-align: center;
+    padding-bottom: 4px;
+    margin-bottom: 10px;
+    margin-top: 30px;
+    border-radius: 10px;
+    font-size: large;
+    font-weight: 700;
+}
+.label{
     font-size: 15px;
-    font-weight: 900;
+    color: var(--black);
 }
-
-.stat-row {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 25px;
-}
-
-.stat-title {
-    color: var(--ion-color-primary);
-    margin: 0;
-    font-size: 13px;
-    display: flex;
-    flex-direction: column;
-}
-
-.bg-lite {
-    background: var(--light-gray);
-}
-
-.stat-box {
-    display: flex;
-    gap: 3%;
-}
-
-.stat-filter {
-    font-size: 14px;
-    padding: 0;
-}
-
-.segment-label{
+.card-button{
+    --background:rgb(53, 120, 184);
+    width: 76% !important;
     font-weight: bold;
-    text-transform: none;
+    height: 43px;
+    font-size: 16px;
+    margin-top: 13px;
+    margin-bottom: 30px;
 }
-.filter{
-  margin-left: 18%;
-  margin-right: 5%;
-  border: 1px solid rgb(182, 177, 177);
-  border-radius: 7px;
+.create-icon{
+    font-size: 32px;
+    margin: 10px;
+}
+.card-content{
+    padding-top: 0px;
+}
+.section-header{
+    margin: 8px 0px 12px 10px;
+    letter-spacing: 1px;
+}
+.header {
+    text-align: start;
 }

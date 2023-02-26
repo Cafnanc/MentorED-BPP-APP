@@ -1,11 +1,79 @@
-.index-label{
-    border-top: 1px solid var(--gray);
-    padding: 10px 15px;
-    margin: 40px 15px 15px 10px;
-    border-bottom: 1px solid var(--gray);
-    font-weight: 600;
+.page-intro {
+    display: inline-flex;
+    padding-left: 20px !important;
+    overflow: scroll;
 }
-.search-style{
-    --border-radius: 10px;
-    padding: 5px 0px;
-  }
+h3{
+    margin: 25px 0px 10px 15px;
+    font-size: 24px;
+}
+.welcome-note{
+    font-size: 19px;
+    padding: 8px 8px 8px 18px;
+}
+.search-bar{
+    --border-radius:25px;
+    --icon-color:var(--ion-color-primary);
+    font-size:16px;
+    margin-top: 10px;
+    height: fit-content;
+}
+.segment-div{
+    margin: 2px 4px;
+    ion-button{
+        --ripple-color:var(--gray)
+    }
+}
+.segment-button{
+    --border-radius:25px;
+    color: black;
+    --border-color:var(--gray);
+    height: 45px;
+    font-size: small;
+}
+.font-bold{
+    --border-radius:25px;
+    color: black;
+    --border-color:var(--ion-color-primary);
+    height: 45px;
+    font-size: 15px;
+}
+.session-sqr-card{
+    text-align: center;
+    padding-bottom: 4px;
+    margin-bottom: 10px;
+    margin-top: 17px;
+    border-radius: 10px;
+    font-size: 21px;
+    font-weight: 900;
+}
+.label{
+    font-size: 15px;
+    color: var(--black);
+}
+.card-button{
+    --background:rgb(53, 120, 184);
+    width: 72% !important;
+    font-weight: bold;
+    height: 43px;
+    font-size: 16px;
+    margin-top: 0px;
+    margin-bottom: 20px;
+}
+.create-icon{
+    font-size: 32px;
+    margin: 5px;
+}
+.card-content{
+    padding-top: 0px;
+}
+.section-header{
+    font-size: 17px;
+    letter-spacing: 1px;
+}
+.header {
+    text-align: start;
+}
+.cards {
+    margin-top: 20px;
+}

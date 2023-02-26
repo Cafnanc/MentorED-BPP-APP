@@ -22,28 +22,33 @@
     </div> -->
   </div>
 </div>
-<ion-content>
-  <div *ngIf="sessions&&(selectedSegment=='all-sessions')">
+<ion-content class="ion-padding">
+  <!-- <div *ngIf="sessions&&(selectedSegment=='all-sessions')">
     <div class="my-10" *ngFor="let session of sessions?.allSessions">
       <app-session-card [data]="session" (onClickEvent)="eventAction($event)">
       </app-session-card>
     </div>
-  </div>
+  </div> -->
   <div *ngIf="createdSessions?.data?.length"
     class="session-sqr-card">
     <!-- <ion-card *ngIf="createdSessions?.data?.length" class="session-sqr-card">
       <ion-card-content class="card-content"> -->
-        <div class="session-sqr-card d-flex flex-justify-center flex-align-items-flex-end">
-          {{"START_CREATE_SESSION"|translate}}
-        </div>
-        <ion-button shape="round" strong="true" class="card-button" (click)="createSession()">
-          {{'CREATE_SESSION' | translate}} <ion-icon class="create-icon" name="add-circle-outline"></ion-icon>
-        </ion-button>
+        <!-- <ion-label class="section-header ion-padding">
+          {{'CREATE_SESSION_USING' | translate}}
+        </ion-label>
+        <div>
+          <ion-button shape="round" strong="true" class="card-button" (click)="createSession('bot')">
+            AI Chatbot<ion-icon class="create-icon" name="add-circle-outline"></ion-icon>
+          </ion-button>
+          <ion-button shape="round" strong="true" class="card-button" (click)="createSession('form')">
+            Standard Form<ion-icon class="create-icon" name="add-circle-outline"></ion-icon>
+          </ion-button>
+        </div> -->
       <!-- </ion-card-content>
     </ion-card> -->
     <div *ngIf="createdSessions?.data?.length" class="header">
-      <ion-label class="font-bold section-header">{{"CREATED_SESSIONS"|translate}}</ion-label>
-      <div *ngFor="let session of createdSessions?.data">
+      <ion-label class="font-bold section-header">{{"UPCOMING_SESSIONS"|translate}}</ion-label>
+      <div *ngFor="let session of createdSessions?.data" class="ion-padding-top">
         <app-session-card [data]="session" (onClickEvent)="eventAction($event)">
         </app-session-card>
       </div>
@@ -58,36 +63,7 @@
       </div>
     </div>
   </div>
-  <div *ngIf="sessions&&(selectedSegment=='my-sessions')">
-    <div *ngIf="sessions && sessions?.mySessions?.length">
-      <ion-label class="font-bold section-header">{{"ENROLLED_SESSIONS"|translate}}</ion-label>
-      <div class="my-10" *ngFor="let session of sessions?.mySessions">
-        <app-session-card [data]="session" (onClickEvent)="eventAction($event)">
-        </app-session-card>
-      </div>
-    </div>
-    <!-- <div *ngIf="sessions?.mySessions?.length">
-      <div class="page-intro">
-        <h5>
-          {{"MY_SESSIONS" | translate}}
-        </h5>
-        <ion-button color="primary" size="small" shape="round" class="ion-margin-top ion-text-capitalize"
-          (click)="viewMore('my-sessions')">
-          {{"VIEW_MORE" | translate}}<ion-icon name="caret-forward-outline"></ion-icon>
-        </ion-button>
-      </div>
-      <ion-row>
-        <ion-col size="6" *ngFor="let session of sessions?.mySessions">
-          <app-session-sqr-card [data]="session" (onClickEvent)="eventAction($event)"> </app-session-sqr-card>
-        </ion-col>
-      </ion-row>
-    </div> -->
-    <div *ngIf="sessions && !sessions?.mySessions.length">
-      <app-no-data-found [messageHeader]="'NO_SESSIONS_ENROLLED'" [messageDescription]="'CHECK_ALLSESSION_TO_ENROLL'">
-      </app-no-data-found>
-    </div>
-  </div>
-  <div *ngIf="!sessions">
+  <div *ngIf="!createdSessions?.data?.length">
     <app-skeleton [type]="SKELETON.HOME_SKELETON" [repetition]="4"></app-skeleton>
   </div>
 </ion-content>

@@ -1,80 +1,64 @@
-<app-page-header [config]="headerConfig"></app-page-header>
-
-
-<ion-content [fullscreen]="true">
-  <div>
-    <ion-toolbar *ngIf="isMentor">
-      <ion-segment [value]="segment" swipeGesture="true" (ionChange)="segmentChanged($event)">
-        <ion-segment-button value="mentor">
-          <ion-label class="segment-label">{{'AS_A_MENTOR' | translate}}</ion-label>
-        </ion-segment-button>
-        <ion-segment-button value="mentee">
-          <ion-label class="segment-label">{{'AS_A_MENTEE' | translate}}</ion-label>
-        </ion-segment-button>
-      </ion-segment>
-    </ion-toolbar>
-    <div  class="main-wrapper">
-      <ion-row class="stat-row">
-        <ion-col>
-          <p class="dashboard-title">{{'SESSION_OVERVIEW' | translate}}</p>
-        </ion-col>
-        <ion-col>
-          <div class="filter">
-            <app-filter [defaultValue]="selectedFilter" [filter]="filter" (filterChange)="filterChangeHandler($event)">
-            </app-filter>
-          </div>
-        </ion-col>
-      </ion-row>
-
-      <div [ngSwitch]="segment"  *ngIf="dataAvailable">
-        <div *ngSwitchCase="'mentor'">
-          <ion-row class="stat-box">
-            <ion-col class="bg-lite">
-              <p class="stat-title">
-                {{'TOTAL_SESSION_CREATED' | translate}}
-                <span>{{chartData.chart.data.datasets[0].data[0]}}</span>
-              </p>
-            </ion-col>
-            <ion-col size=".5">
-            </ion-col>
-            <ion-col class="bg-lite">
-              <p class="stat-title">
-                {{'TOTAL_SESSION_CONDUCTED' | translate}}
-                <span>{{chartData.chart.data.datasets[0].data[1]}}</span>
-              </p>
-            </ion-col>
-          </ion-row>
-          <sl-pie-chart *ngIf="!loading" [data]="chartData"></sl-pie-chart>
+<app-page-header [config]="headerConfig">
+  <ion-row class="header-bottom-border ion-padding">
+    <h3>
+      {{'WELCOME'| translate}} {{ user?.name }}!
+    </h3>
+    <ion-col class="welcome-note" size="12">{{'START_CREATING_SESSION' | translate}}</ion-col>
+    <ion-col size="12" class="ion-no-padding">
+      <!-- <div>
+        <ion-searchbar class="search-bar" placeholder="{{'HOME_SEARCH_PLACEHOLDER' | translate}}" (click)="search()">
+        </ion-searchbar>
+      </div> -->
+    </ion-col>
+  </ion-row>
+</app-page-header>
+<div class="page-intro segment-wrapper">
+  <div class="d-flex segment-wrapper">
+    <!-- <div class="segment-div" *ngFor="let segment of segmentButtons;">
+      <ion-button
+        *ngIf="!mentorSegmentButton.includes(segment.name) || (mentorSegmentButton.includes(segment.name)&&user?.isAMentor)"
+        [ngClass]="{'font-bold': (selectedSegment==segment?.name) , 'segment-button': (selectedSegment!=segment?.name)}"
+        fill="outline" (click)="segmentChanged(segment)">{{segment?.label|translate}}</ion-button>
+    </div> -->
+  </div>
+</div>
+<ion-content class="ion-padding">
+  <div *ngIf="sessions&&(selectedSegment=='all-sessions')">
+    <div class="my-10" *ngFor="let session of sessions?.allSessions">
+      <app-session-card [data]="session" (onClickEvent)="eventAction($event)">
+      </app-session-card>
+    </div>
+  </div>
+  <div *ngIf="createdSessions?.data?.length"
+    class="session-sqr-card">
+    <!-- <ion-card *ngIf="createdSessions?.data?.length" class="session-sqr-card">
+      <ion-card-content class="card-content"> -->
+        <!-- <div class="session-sqr-card d-flex flex-justify-center flex-align-items-flex-end">
+          {{"START_CREATE_SESSION"|translate}}
         </div>
-        <div *ngSwitchCase="'mentee'">
-          <ion-row class="stat-box">
-            <ion-col class="bg-lite">
-              <p class="stat-title">
-                {{'TOTAL_SESSION_ENROLLED' | translate}}
-                <span>{{chartData.chart.data.datasets[0].data[0]}}</span>
-              </p>
-            </ion-col>
-            <ion-col size=".5">
-            </ion-col>
-            <ion-col class="bg-lite">
-              <p class="stat-title">
-                {{'TOTAL_SESSION_ATTENDED' | translate}}
-                <span>{{chartData.chart.data.datasets[0].data[1]}}</span>
-              </p>
-            </ion-col>
-          </ion-row>
-          <div *ngIf="chartData">
-            <sl-pie-chart *ngIf="!loading" [data]="chartData"></sl-pie-chart>
-          </div>
-        </div>
-      </div>
-      <div class="empty-state-container" *ngIf="!dataAvailable && !loading">
-        <app-no-data-found [messageHeader]="'NO_DATA_AVAILABLE'"></app-no-data-found>
+        <ion-button shape="round" strong="true" class="card-button" (click)="createSession()">
+          {{'CREATE_SESSION' | translate}} <ion-icon class="create-icon" name="add-circle-outline"></ion-icon>
+        </ion-button> -->
+      <!-- </ion-card-content>
+    </ion-card> -->
+    <div *ngIf="createdSessions?.data?.length" class="header">
+      <ion-label class="font-bold section-header">{{"PAST_SESSIONS"|translate}}</ion-label>
+      <div *ngFor="let session of createdSessions?.data">
+        <app-session-card [data]="session" (onClickEvent)="eventAction($event)">
+        </app-session-card>
       </div>
     </div>
-
+    <div *ngIf="!createdSessions?.data?.length">
+      <app-no-data-found [messageHeader]="'NO_SESSIONS_CREATED'" [messageDescription]="'START_CREATING_SESSION'">
+      </app-no-data-found>
+      <div class="d-flex flex-justify-center">
+        <ion-button shape="round" strong="true" class="card-button" (click)="createSession()">
+          {{'CREATE_SESSION' | translate}} <ion-icon class="create-icon" name="add-circle-outline"></ion-icon>
+        </ion-button>
+      </div>
+    </div>
+  </div>
+  <div *ngIf="!createdSessions?.data?.length">
+    <app-skeleton [type]="SKELETON.HOME_SKELETON" [repetition]="4"></app-skeleton>
   </div>
 </ion-content>
-
-<ion-footer class="ion-no-border">
-</ion-footer>

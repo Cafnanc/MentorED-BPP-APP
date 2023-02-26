@@ -5,7 +5,7 @@
   <div *ngIf="formData && showForm">
     <app-dynamic-form [jsonFormData]="formData" #form1> </app-dynamic-form>
   </div>
-  <div *ngIf="isAssistanceEnabled" style="height: 60%;width: 90%;">
+  <div *ngIf="type=='bot'" style="height: 60%;width: 90%;">
     <app-conversational-form #form (onSubmit)="chatBotSubmit($event)" (imageUploadEvent)="imageUploadEvent($event)"> </app-conversational-form>
   </div>
 </ion-content>

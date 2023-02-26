@@ -442,7 +442,7 @@ export class ConversationalFormComponent implements OnInit {
       },
       tags: this.fields,
     });
-    this.myCf.nativeElement.appendChild(this.formulario.el);
+    this.myCf?.nativeElement.appendChild(this.formulario.el);
   }
 
   onStepCallback = function (dto, success, error) {

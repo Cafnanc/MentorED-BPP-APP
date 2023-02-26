@@ -1,25 +1,29 @@
 <app-page-header [config]="headerConfig">
-  <ion-item color="primary">
-    <ion-row class="ion-padding">
-      <ion-col size="12"
-        >Lorem, ipsum dolor sit amet consectetur adipisicing elit. Modi,
-        sequi</ion-col
-      >
-      <ion-col size="12">
-        <ion-searchbar placeholder="Search Favorites"></ion-searchbar>
-      </ion-col>
-    </ion-row>
-  </ion-item>
+  <ion-row class="header-bottom-border ion-padding">
+    <h3>
+      {{'WELCOME'| translate}} {{ user?.name }}!
+    </h3>
+    <ion-col class="welcome-note" size="12">{{'START_CREATING_SESSION' | translate}}</ion-col>
+    <ion-col size="12" class="ion-no-padding">
+    </ion-col>
+  </ion-row>
 </app-page-header>
-<ion-content [fullscreen]="true">
-  <div>
-    <app-dynamic-form [jsonFormData]="formData" #form1> </app-dynamic-form>
+<ion-content>
+  <div class="session-sqr-card">
+    <ion-card class="session-sqr-card">
+      <ion-card-content class="card-content">
+        <ion-label class="section-header">
+          {{'CREATE_SESSION_USING' | translate}}
+        </ion-label>
+        <div>
+          <ion-button shape="round" strong="true" class="card-button" (click)="createSession('bot')">
+            AI Chatbot<ion-icon class="create-icon" name="add-circle-outline"></ion-icon>
+          </ion-button>
+          <ion-button shape="round" strong="true" class="card-button" (click)="createSession('form')">
+            Standard Form<ion-icon class="create-icon" name="add-circle-outline"></ion-icon>
+          </ion-button>
+        </div>
+      </ion-card-content>
+    </ion-card>
   </div>
 </ion-content>
-
-<ion-footer class="ion-no-border" submitButton>
-  <ion-toolbar>
-    <ion-button slot="end" (click)="onSubmit()">Submit</ion-button>
-    <ion-button (click)="resetForm()">Reset</ion-button>
-  </ion-toolbar>
-</ion-footer>

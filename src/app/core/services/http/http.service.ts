@@ -75,9 +75,6 @@ export class HttpService {
     return this.http.get(this.baseUrl + requestParam.url, '', headers)
       .then((data: any) => {
         let result: any = JSON.parse(data.data);
-        if(result?.meta?.data?.length){
-          this.openModal(result?.meta?.data[0]);
-        }
         if (result.responseCode === "OK") {
           return result;
         }

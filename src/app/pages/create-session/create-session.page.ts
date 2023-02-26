@@ -47,6 +47,7 @@ export class CreateSessionPage implements OnInit {
   isAssistanceEnabled: any;
   data: any;
   loading: HTMLIonLoadingElement;
+  type: string;
   constructor(
     private utilService: UtilService,
     private sessionService: SessionService,
@@ -67,20 +68,14 @@ export class CreateSessionPage implements OnInit {
   ) {
     this.activatedRoute.queryParamMap.subscribe(params => {
       this.id = params?.get('id');
+      this.type = params?.get('type');
       this.path = this.platform.is("ios") ? this.file.documentsDirectory : this.file.externalDataDirectory;
     });
   }
   async ngOnInit() {
-    let msg = {
-      header: 'Hi there! i am MentorED chatbot...',
-      message: 'Do you need my assistance in creating your session? we are happy to help you!',
-      cancel: 'No',
-      submit: 'Yes'
-    }
-    this.utilService.alertPopup(msg).then(async data => {
       const result = await this.form.getForm(CREATE_SESSION_FORM);
       this.formData = _.get(result, 'result.data.fields');
-      this.isAssistanceEnabled = data
+      this.isAssistanceEnabled = this.type === 'bot' ? true : false; 
       if (!this.isAssistanceEnabled) {
         if (this.id) {
           let response = await this.sessionService.getSessionDetailsAPI(this.id);
@@ -96,7 +91,6 @@ export class CreateSessionPage implements OnInit {
         this.profileImageData.isUploaded = true;
         this.changeDetRef.detectChanges();
       }
-    }).catch(error => { })
   }
 
   async canPageLeave() {
