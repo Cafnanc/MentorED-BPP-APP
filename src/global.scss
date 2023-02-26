@@ -149,8 +149,9 @@ h6, h5 , h4, h3, h2, h1 {
 .header-bottom-border {
   background-color: var( --ion-color-primary);
   color: white;
-  margin-top: 0;
+  padding: 10px 0 25px 15px;
   border-bottom-left-radius: 30px;
+  font-size: larger;
 }
 ion-card-title{
   font-size: 18px;

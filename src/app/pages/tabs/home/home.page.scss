@@ -4,11 +4,12 @@
     overflow: scroll;
 }
 h3{
-    margin: 10px 0px 10px 5px;
+    margin: 25px 0px 10px 15px;
     font-size: 24px;
 }
 .welcome-note{
-    font-size: 18px;
+    font-size: 19px;
+    padding: 8px 8px 8px 18px;
 }
 .search-bar{
     --border-radius:25px;
@@ -35,17 +36,19 @@ h3{
 }
 .font-bold{
     --border-radius:25px;
-    font-weight: bold;
     color: black;
     --border-color:var(--ion-color-primary);
     height: 45px;
-    font-size: small;
+    font-size: 15px;
 }
 .session-sqr-card{
     text-align: center;
     padding-bottom: 4px;
-    margin-bottom: 40px;
+    margin-bottom: 10px;
+    margin-top: 30px;
     border-radius: 10px;
+    font-size: large;
+    font-weight: 700;
 }
 .label{
     font-size: 15px;
@@ -53,11 +56,12 @@ h3{
 }
 .card-button{
     --background:rgb(53, 120, 184);
-    width: 85% !important;
+    width: 76% !important;
     font-weight: bold;
     height: 43px;
-    font-size: larger;
+    font-size: 16px;
     margin-top: 13px;
+    margin-bottom: 30px;
 }
 .create-icon{
     font-size: 32px;
@@ -69,4 +73,7 @@ h3{
 .section-header{
     margin: 8px 0px 12px 10px;
     letter-spacing: 1px;
+}
+.header {
+    text-align: start;
 }

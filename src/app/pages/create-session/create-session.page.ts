@@ -100,39 +100,41 @@ export class CreateSessionPage implements OnInit {
   }
 
   async canPageLeave() {
-    return true
-    if (!this.form1.myForm.pristine || !this.profileImageData.isUploaded) {
-      let texts: any;
-      this.translate.get(['SESSION_FORM_UNSAVED_DATA', 'EXIT', 'BACK']).subscribe(text => {
-        texts = text;
-      })
-      const alert = await this.alert.create({
-        message: texts['SESSION_FORM_UNSAVED_DATA'],
-        buttons: [
-          {
-            text: texts['EXIT'],
-            cssClass: "alert-button",
-            handler: () => { }
-          },
-          {
-            text: texts['BACK'],
-            cssClass: "alert-button",
-            role: 'cancel',
-            handler: () => { }
-          }
-        ]
-      });
-      await alert.present();
-      let data = await alert.onDidDismiss();
-      if (data.role == 'cancel') {
-        return false;
+    if (this.isAssistanceEnabled) {
+      return true;
+    } else {
+      if (!this.form1.myForm.pristine || !this.profileImageData.isUploaded) {
+        let texts: any;
+        this.translate.get(['SESSION_FORM_UNSAVED_DATA', 'EXIT', 'BACK']).subscribe(text => {
+          texts = text;
+        })
+        const alert = await this.alert.create({
+          message: texts['SESSION_FORM_UNSAVED_DATA'],
+          buttons: [
+            {
+              text: texts['EXIT'],
+              cssClass: "alert-button",
+              handler: () => { }
+            },
+            {
+              text: texts['BACK'],
+              cssClass: "alert-button",
+              role: 'cancel',
+              handler: () => { }
+            }
+          ]
+        });
+        await alert.present();
+        let data = await alert.onDidDismiss();
+        if (data.role == 'cancel') {
+          return false;
+        } else {
+          return true;
+        }
       } else {
         return true;
       }
-    } else {
-      return true;
     }
-    return true
   }
 
 

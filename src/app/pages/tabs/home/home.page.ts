@@ -36,9 +36,10 @@ export class HomePage implements OnInit {
     headerColor: 'primary',
     // label:'MENU'
   };
-  public segmentButtons = [{ name: "all-sessions", label: "ALL_SESSIONS" }, { name: "created-sessions", label: "CREATED_SESSIONS" }, { name: "my-sessions", label: "ENROLLED_SESSIONS" }]
+  // public segmentButtons = [{ name: "all-sessions", label: "ALL_SESSIONS" }, { name: "created-sessions", label: "CREATED_SESSIONS" }, { name: "my-sessions", label: "ENROLLED_SESSIONS" }]
+  public segmentButtons = [{ name: "bot", label: "Create session using BOT" }, { name: "form", label: "Create session using form" }]
   public mentorSegmentButton = ["created-sessions"]
-  selectedSegment = "all-sessions";
+  selectedSegment = "created-sessions";
   createdSessions: any;
   constructor(
     private http: HttpClient,
@@ -133,7 +134,7 @@ export class HomePage implements OnInit {
     return await modal.present();
   }
   async segmentChanged(event) {
-    this.selectedSegment = event.name;
+    // this.selectedSegment = event.name;
   }
   async createSession() {
     let userDetails = await this.localStorage.getLocalData(localKeys.USER_DETAILS);

@@ -3,23 +3,23 @@
     <h3>
       {{'WELCOME'| translate}} {{ user?.name }}!
     </h3>
-    <ion-col class="welcome-note" size="12">{{'WELCOME_NOTE' | translate}}</ion-col>
+    <ion-col class="welcome-note" size="12">{{'START_CREATING_SESSION' | translate}}</ion-col>
     <ion-col size="12" class="ion-no-padding">
-      <div>
+      <!-- <div>
         <ion-searchbar class="search-bar" placeholder="{{'HOME_SEARCH_PLACEHOLDER' | translate}}" (click)="search()">
         </ion-searchbar>
-      </div>
+      </div> -->
     </ion-col>
   </ion-row>
 </app-page-header>
 <div class="page-intro segment-wrapper">
   <div class="d-flex segment-wrapper">
-    <div class="segment-div" *ngFor="let segment of segmentButtons;">
+    <!-- <div class="segment-div" *ngFor="let segment of segmentButtons;">
       <ion-button
         *ngIf="!mentorSegmentButton.includes(segment.name) || (mentorSegmentButton.includes(segment.name)&&user?.isAMentor)"
         [ngClass]="{'font-bold': (selectedSegment==segment?.name) , 'segment-button': (selectedSegment!=segment?.name)}"
         fill="outline" (click)="segmentChanged(segment)">{{segment?.label|translate}}</ion-button>
-    </div>
+    </div> -->
   </div>
 </div>
 <ion-content>
@@ -29,18 +29,19 @@
       </app-session-card>
     </div>
   </div>
-  <div *ngIf="(selectedSegment=='created-sessions')&&user?.isAMentor">
-    <ion-card *ngIf="createdSessions?.data?.length" class="session-sqr-card">
-      <ion-card-content class="card-content">
-        <div class="segment-button d-flex flex-justify-center flex-align-items-flex-end">
+  <div *ngIf="createdSessions?.data?.length"
+    class="session-sqr-card">
+    <!-- <ion-card *ngIf="createdSessions?.data?.length" class="session-sqr-card">
+      <ion-card-content class="card-content"> -->
+        <div class="session-sqr-card d-flex flex-justify-center flex-align-items-flex-end">
           {{"START_CREATE_SESSION"|translate}}
         </div>
         <ion-button shape="round" strong="true" class="card-button" (click)="createSession()">
           {{'CREATE_SESSION' | translate}} <ion-icon class="create-icon" name="add-circle-outline"></ion-icon>
         </ion-button>
-      </ion-card-content>
-    </ion-card>
-    <div *ngIf="createdSessions?.data?.length">
+      <!-- </ion-card-content>
+    </ion-card> -->
+    <div *ngIf="createdSessions?.data?.length" class="header">
       <ion-label class="font-bold section-header">{{"CREATED_SESSIONS"|translate}}</ion-label>
       <div *ngFor="let session of createdSessions?.data">
         <app-session-card [data]="session" (onClickEvent)="eventAction($event)">
