@@ -11,45 +11,44 @@ CONTENTS OF THIS FILE
 
 DEPENDENCIES
 ---------------------
+
 * Ionic:
 
-   Ionic CLI                     : 6.19.1 (/usr/local/lib/node_modules/@ionic/cli)
-   Ionic Framework               : @ionic/angular 6.1.7
+   Ionic CLI                     : 5.4.16 (/usr/local/lib/node_modules/ionic)
+   Ionic Framework               : @ionic/angular 6.5.6
    @angular-devkit/build-angular : 13.2.6
    @angular-devkit/schematics    : 13.2.6
    @angular/cli                  : 13.2.6
    @ionic/angular-toolkit        : 6.1.0
 
+
 * Capacitor:
 
-   Capacitor CLI      : 3.5.1
-   @capacitor/android : 3.5.0
-   @capacitor/core    : 3.5.1
+   Capacitor CLI      : 3.9.0
+   @capacitor/android : 3.6.0
+   @capacitor/core    : 3.9.0
    @capacitor/ios     : 3.5.0
 
-* Cordova:
-
-   Cordova CLI       : 11.0.0
-   Cordova Platforms : none
-   Cordova Plugins   : no whitelisted plugins (0 plugins total)
 
 * Utility:
 
    cordova-res : 0.15.4
-   native-run  : 1.6.0
+   native-run  : 1.7.1
+
 
 * System:
 
-   Android SDK Tools : 26.1.1 (/home/afnan/Android/Sdk)
-   NodeJS            : v14.19.0 (/usr/local/bin/node)
-   npm               : 6.14.16
-   OS                : Linux 5.13
+   Android SDK Build-tools : 34-rc1
+   Android SDK Platform-tools : 33.0.3
+   NodeJS            : v18.12.1 (/usr/local/bin/node)
+   npm               : 8.19.2
+   OS                : Linux 5.15
 
 
 IONIC-ANDROID BUILD SETUP
 ---------------------
 
-- [Install java] (https://www.oracle.com/java/technologies/downloads/#java8)
+- [Install java] (https://www.oracle.com/java/technologies/downloads/#java11)
 - [Install Gradle] (https://gradle.org/install/)
 - [Install Android Studio] (https://developer.android.com/studio)
 
@@ -69,15 +68,15 @@ CLI SETUP
 - `npm install -g ionic`   
 - `npm install @capacitor/core`   
 - `npm install @capacitor/cli --save-dev` 
-- `npx cap init` 
 
 
 PROJECT SETUP
 ---------------------
 
-- git clone the repo (https://github.com/ELEVATE-Prjoect/mentoring-mobile-app.git)
+- git clone the repo ( https://github.com/Cafnanc/MentorED-BPP-App.git)
 - Add environment files inside src/environments
 - Go to project folder and run npm i
+
 
 BUILD APK
 ---------------------
@@ -85,8 +84,8 @@ BUILD APK
 - To check attached devices do adb devices
 - Run ionic build (Make sure you have attached device)
 - Run ionic cap sync
-- Run ionic capacitor run android --prod
-- Apk location project_folder/platforms/android/app/build/outputs/apk/debug/apk_name.apk
+- Run ionic cap run android
+- Apk location project_folder/android/app/build/outputs/apk/debug/apk_name.apk
 
 
 DEBUG APK
