@@ -22,7 +22,7 @@
 </div>
 
 <ng-template #profileBlock>
-  <div class="field-wrapper" *ngFor="let item of sessionData.form" >
+  <div class="field-wrapper" *ngFor="let item of sessionData.form" style="margin:0px 20px 10px 20px">
     <div *ngIf="!sessionData?.menteeForm?.includes(item.title) || (sessionData?.menteeForm?.includes(item.title)&&!sessionData.data.isAMentor)" 
     class="details-section">
       <p class="session-detail-heading">{{item.title | translate }}</p>
