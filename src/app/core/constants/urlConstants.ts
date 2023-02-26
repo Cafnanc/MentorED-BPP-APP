@@ -19,6 +19,9 @@ export const urlConstants = {
         UPCOMING_SESSIONS:"/hackathon-mentoring/v1/mentors/upcomingSessions/",
         SHARE_MENTOR_PROFILE:"/hackathon-mentoring/v1/mentors/share/",
         REPORT_ISSUE:"/hackathon-mentoring/v1/issues/create",
+        ADD_CREDENTIALS:"/hackathon-user/v1/credentials/add",
+        DOWNLOAD_FILE:"/hackathon-user/v1/cloud-services/file/getDownloadableUrl?filePath=",
+        GET_CREDENTIAL_IMAGE_UPLOAD_URL:"/hackathon-user/v1/cloud-services/file/getSignedUrl?fileName=",
         
         // FORMS
         FORM_READ:'/hackathon-mentoring/v1/form/read',

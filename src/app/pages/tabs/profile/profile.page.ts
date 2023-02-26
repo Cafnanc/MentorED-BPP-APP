@@ -7,6 +7,8 @@ import { TranslateService } from '@ngx-translate/core';
 import { LocalStorageService } from 'src/app/core/services';
 import { localKeys } from 'src/app/core/constants/localStorage.keys';
 import { Router } from '@angular/router';
+import { HttpService } from 'src/app/core/services';
+import { urlConstants } from 'src/app/core/constants/urlConstants';
 
 @Component({
   selector: 'app-profile',
@@ -65,28 +67,11 @@ export class ProfilePage implements OnInit {
   sessionData={}
   user: any;
   visited:boolean;
-  credentialsList:any=[
-    {
-      type: "identity",
-      documentType: "Aadhar",
-      documentId: "123456789012",
-      url:"http://google.com",
-    },
-    {
-      type: "work",
-      experience:"5 years",
-      companyName: "Google Inc",
-      url:"http://www.google.com"
-    },
-    {
-      type:"skill",
-      skill:"B.Tech",
-      university:"Mumbai University",
-      rollNo:"123",
-      YOP:"2018"
-    }
-  ]
-  constructor(public navCtrl: NavController, private profileService: ProfileService, private translate: TranslateService, private router: Router, private localStorage:LocalStorageService) { }
+  credentialsList:any=[]
+  isMentorVerified:boolean=false
+
+  constructor(public navCtrl: NavController, private profileService: ProfileService, private translate: TranslateService, private router: Router, private localStorage:LocalStorageService,
+    private httpService: HttpService) { }
 
   ngOnInit() {
     this.visited = false;
@@ -106,6 +91,8 @@ export class ProfilePage implements OnInit {
     var response = await this.profileService.getProfileDetailsFromAPI(this.user.isAMentor,this.user._id);
     this.formData.data = response;
     this.formData.data.emailId = response.email.address;
+    this.credentialsList = response?.credentials||[]
+    this.isMentorVerified = response.isMentorVerified
     if (this.formData?.data?.about) {
       this.showProfileDetails = true;
     } else {
@@ -128,8 +115,19 @@ export class ProfilePage implements OnInit {
   }
 
   refresh(){
-    console.log('REFRESH CALLED')
+    this.fetchProfileDetails()
   }
 
 
+  async openFile(url){
+    const config = {
+      url: urlConstants.API_URLS.DOWNLOAD_FILE+url,
+    };
+    try {
+      const data: any = await this.httpService.post(config);
+      window.open(data.result, '_blank')
+    }
+    catch (error) {
+    }
+  }
 }

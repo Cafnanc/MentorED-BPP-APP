@@ -4,7 +4,7 @@
         <ion-refresher-content></ion-refresher-content>
     </ion-refresher>
     <div *ngIf="formData && formData.data">
-        <app-generic-profile-header [headerData]='formData.data'[buttonConfig]="buttonConfig" [showRole]="true" (refresh)="refresh()"></app-generic-profile-header>
+        <app-generic-profile-header [headerData]='formData.data'[buttonConfig]="buttonConfig" [showRole]="true" (refresh)="refresh()" [isMentorVerified]="isMentorVerified"></app-generic-profile-header>
         <div *ngIf="showProfileDetails; else elseBlock">
             <ion-card *ngIf="formData?.data?.isAMentor" class="card-wrapper">
                 <ion-card-content class="padding-top-10">
@@ -21,25 +21,25 @@
             <div class="details-wrapper">
                 <div class="field-wrapper" *ngIf="credentialsList.length>0">
                     <div class="details-section">
-                      <p class="session-detail-heading">Credentials</p>
-                      <div *ngFor="let item of credentialsList">
+                      <p class="session-detail-heading" style="font-size: 16px;">Credentials</p>
+                      <div *ngFor="let item of credentialsList;" class="credentials-list">
                         <div [ngSwitch]="item.type">
-                            <div *ngSwitchCase="'identity'" class="details-section credentials-block">
+                            <div *ngSwitchCase="'identity'" class="credentials-block">
                                 <div class="credentials-type">Identity</div>
                                 <ion-row>
                                     <ion-col class="card-header-config">Id type</ion-col>
-                                    <ion-col class="card-header-config">{{item.documentType}}</ion-col>
+                                    <ion-col class="card-header-config" style="text-transform: capitalize;">{{item.documentType}}</ion-col>
                                 </ion-row>
                                 <ion-row>
                                     <ion-col class="card-header-config">Id number</ion-col>
-                                    <ion-col class="card-header-config">{{item.documentId}}</ion-col>
+                                    <ion-col class="card-header-config">{{item?.documentId||item?.uid}}</ion-col>
                                 </ion-row>
                                 <ion-row *ngIf="item.url">
                                     <ion-col class="card-header-config">Document</ion-col>
-                                    <ion-col class="card-header-config"><a [href]="item.url">View</a></ion-col>
+                                    <ion-col class="card-header-config" (click)="openFile(item.url)"><a>View</a></ion-col>
                                 </ion-row>
                             </div>
-                            <div *ngSwitchCase="'skill'" class="details-section credentials-block">
+                            <div *ngSwitchCase="'skill'" class="credentials-block">
                                 <div class="credentials-type">Skill</div>
                                 <ion-row>
                                     <ion-col class="card-header-config">Course</ion-col>
@@ -59,10 +59,10 @@
                                 </ion-row>
                                 <ion-row *ngIf="item.url">
                                     <ion-col class="card-header-config">Document</ion-col>
-                                    <ion-col class="card-header-config"><a [href]="item.url">View</a></ion-col>
+                                    <ion-col class="card-header-config" (click)="openFile(item.url)"><a>View</a></ion-col>
                                 </ion-row>
                             </div>
-                            <div *ngSwitchCase="'work'" class="details-section credentials-block">
+                            <div *ngSwitchCase="'work'" class="credentials-block">
                                 <div class="credentials-type">Work experience</div>
                                 <ion-row>
                                     <ion-col class="card-header-config">Company name</ion-col>
@@ -74,7 +74,7 @@
                                 </ion-row>
                                 <ion-row *ngIf="item.url">
                                     <ion-col class="card-header-config">Document</ion-col>
-                                    <ion-col class="card-header-config"><a [href]="item.url">View</a></ion-col>
+                                    <ion-col class="card-header-config" (click)="openFile(item.url)"><a>View</a></ion-col>
                                 </ion-row>
                             </div>
                         </div>

@@ -29,14 +29,14 @@
       <ion-row>
         <ion-col class="card-header-config">{{"SESSION_DISCORD"|translate}}</ion-col>
         <ion-col class="card-header-config">
-          <a [href]="discordLink"  *ngIf="inviteLink;else noSummary">Join</a>
+          <a [href]="inviteLink"  *ngIf="inviteLink;else noSummary">Join</a>
           <ng-template #noInvite>-</ng-template>
         </ion-col>
       </ion-row>
       <ion-row>
         <ion-col class="card-header-config">{{"SESSION_TRANSCRIPT"|translate}}</ion-col>
         <ion-col class="card-header-config">
-          <a [href]="discordLink"  *ngIf="channelId;else noId">View</a>
+          <div (click)="showTranscript=true" style="width:fit-content" *ngIf="sessionTranscript;else noId"><a>View</a></div>
           <ng-template #noId>-</ng-template>
         </ion-col>
       </ion-row>
@@ -73,6 +73,21 @@
     </ion-header>
     <ion-content class="ion-padding">
       <div class="session-summary">{{summary}}</div>
+    </ion-content>
+  </ng-template>
+</ion-modal>
+
+
+<ion-modal [isOpen]="showTranscript" [enterAnimation]="enterAnimation" [leaveAnimation]="leaveAnimation" class="summary-modal" (didDismiss)="dismiss()">
+  <ng-template>
+    <ion-header>
+      <div class="d-flex modal-header">
+        <ion-title>{{"SESSION_TRANSCRIPT"|translate}}</ion-title>
+          <ion-icon name="close-circle-outline" (click)="showTranscript=false"></ion-icon>
+      </div>
+    </ion-header>
+    <ion-content class="ion-padding">
+      <div class="session-summary">{{sessionTranscript}}</div>
     </ion-content>
   </ng-template>
 </ion-modal>

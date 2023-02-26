@@ -1,11 +1,13 @@
 import { Component, Input, OnInit, Output, ViewChild ,EventEmitter} from '@angular/core';
 import { NavController } from '@ionic/angular';
 import { TranslateService } from '@ngx-translate/core';
-import { ToastService, UtilService } from 'src/app/core/services';
+import { LoaderService, ToastService, UtilService , AttachmentService} from 'src/app/core/services';
 import { ProfileService } from 'src/app/core/services/profile/profile.service';
 import { CommonRoutes } from 'src/global.routes';
 import { AnimationController } from '@ionic/angular';
 import { DynamicFormComponent,JsonFormData } from '../dynamic-form/dynamic-form.component';
+import { urlConstants } from 'src/app/core/constants/urlConstants';
+import { HttpService } from 'src/app/core/services/';
 
 @Component({
   selector: 'app-generic-profile-header',
@@ -17,13 +19,14 @@ export class GenericProfileHeaderComponent implements OnInit {
   @Input() headerData:any;
   @Input() buttonConfig:any;
   @Input() showRole:any;
+  @Input() isMentorVerified?:boolean=false
   @Output() refresh? = new EventEmitter();
   labels = ["CHECK_OUT_MENTOR","PROFILE_ON_MENTORED_EXPLORE_THE_SESSIONS"];
   showCredentials:boolean=false
   credentialType:any='identity'
   idType:any='aadhaar'
-  isMentorVerified:boolean=false
   selectedFile:any=''
+  fileSelected:boolean=false
   formData: JsonFormData = {
     controls: [
    {
@@ -163,7 +166,7 @@ export class GenericProfileHeaderComponent implements OnInit {
 
 
   constructor(private navCtrl:NavController, private profileService: ProfileService, private utilService:UtilService,private toast: ToastService, private translateService: TranslateService,
-    private animationCtrl: AnimationController) { }
+    private animationCtrl: AnimationController, private httpService: HttpService, private loaderService: LoaderService, private attachment: AttachmentService,) { }
 
   ngOnInit() {
   }
@@ -230,7 +233,6 @@ export class GenericProfileHeaderComponent implements OnInit {
   onSelect(event){
     this.formData.controls=[]
     this.selectedFile=''
-    console.log("VALUE: ",event.target.value)
     switch(event.target.value){
       case 'identity':
         this.idType='aadhaar'
@@ -275,7 +277,8 @@ export class GenericProfileHeaderComponent implements OnInit {
   }
 
   uploadFile(event){
-    this.selectedFile = event.target.files[0]
+    let file = event.target.files[0] 
+    this.selectedFile = {name:file.name.replace(/\s/g,'').toLowerCase(),type:file.type,size:file.size}
   }
 
   close(){
@@ -283,6 +286,7 @@ export class GenericProfileHeaderComponent implements OnInit {
     this.credentialType='identity'
     this.idType=''
     this.formData.controls=[]
+    this.selectedFile=''
   }
 
 
@@ -302,14 +306,22 @@ export class GenericProfileHeaderComponent implements OnInit {
     return form
   }
 
-  submit(type){
+  async submit(type){
+    await this.loaderService.startLoader()
     this.form1.onSubmit();
     let data={type:type, userId:this.headerData._id}
+    if(this.selectedFile){
+      await this.getFileLink()
+    }
     let formData = this.form1.myForm.value
     switch(type){
       case 'identity':
-        data['documentType']=this.idType,
-        data['documentId']=formData[this.idType]
+        data['documentType']=this.idType
+        if(this.idType==='aadhaar'){
+          data['uid']=formData[this.idType]
+        }else{
+          data['documentId']=formData[this.idType]
+        }
                 
       break;
       case 'skill':
@@ -322,10 +334,43 @@ export class GenericProfileHeaderComponent implements OnInit {
       break;
     }
     if(this.selectedFile){
-      data['url'] = this.selectedFile
+      data['url'] = this.selectedFile.uploadUrl.destFilePath
     }
-    console.log('DATA TO SUBMIT: ',data)
+
+    const config = {
+      url: urlConstants.API_URLS.ADD_CREDENTIALS,
+      payload: data,
+    };
+    try {
+      const data: any = await this.httpService.post(config);
+      this.loaderService.stopLoader();
+      this.toast.showToast("Credentials added successfully", "success");
+      this.refresh.emit()
+      this.close()
+    }
+    catch (error) {
+      this.loaderService.stopLoader();
+    }
+
     this.refresh.emit()
     this.close()
+  }
+
+  async getFileLink(){
+    let config = {
+      url: urlConstants.API_URLS.GET_CREDENTIAL_IMAGE_UPLOAD_URL + this.selectedFile.name
+    }
+    let data: any = await this.httpService.get(config);
+    this.selectedFile.uploadUrl = data.result;
+    this.upload();
+  }
+
+
+   async upload() {
+    let data = this.selectedFile
+     await this.attachment.cloudImageUpload(data).then(resp => {
+      this.selectedFile['url'] = data.uploadUrl.destFilePath;
+    }, error => {
+    })
   }
 }
