@@ -48,7 +48,7 @@
     </ion-card> -->
     <div *ngIf="createdSessions?.data?.length" class="header">
       <ion-label class="font-bold section-header">{{"UPCOMING_SESSIONS"|translate}}</ion-label>
-      <div *ngFor="let session of createdSessions?.data" class="ion-padding-top">
+      <div *ngFor="let session of createdSessions?.data">
         <app-session-card [data]="session" (onClickEvent)="eventAction($event)">
         </app-session-card>
       </div>

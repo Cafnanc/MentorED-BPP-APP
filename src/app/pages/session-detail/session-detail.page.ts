@@ -175,7 +175,19 @@ export class SessionDetailPage implements OnInit {
   }
 
   editSession() {
-    this.router.navigate([CommonRoutes.CREATE_SESSION], { queryParams: { id: this.id } });
+    let msg = {
+      header: 'AI Chat-BOT',
+      message: 'Do you need assistance in creating your session? I am always happy to help you.',
+      cancel:'NO',
+      submit:'YES'
+    }
+    this.utilService.alertPopup(msg).then(async (data) => {
+      if(data){
+        this.router.navigate([CommonRoutes.CREATE_SESSION], { queryParams: { type:  'bot'} });
+      } else {
+        this.router.navigate([CommonRoutes.CREATE_SESSION], { queryParams: { type:  'form'} });
+      }
+    }).catch(error => {})
   }
 
   deleteSession() {
