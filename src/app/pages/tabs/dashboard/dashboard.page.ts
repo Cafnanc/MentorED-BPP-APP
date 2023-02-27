@@ -28,6 +28,7 @@ export class DashboardPage implements OnInit {
   sessions;
   sessionsCount = 0;
   status = "published,live";
+  loading:any
   @ViewChild(IonContent) content: IonContent;
 
   public headerConfig: any = {
@@ -56,6 +57,7 @@ export class DashboardPage implements OnInit {
     private toast:ToastService) { }
 
   ngOnInit() {
+    this.loading = true
     this.getUser();
     this.userService.userEventEmitted$.subscribe(data => {
       if (data) {
@@ -70,6 +72,7 @@ export class DashboardPage implements OnInit {
   async ionViewWillEnter() {
     this.obj = { page: this.page, limit: this.limit, searchText: "", status:'completed' };
     this.createdSessions = await this.sessionService.getAllSessionsAPI(this.obj);
+    this.loading = false
   }
   async eventAction(event) {
     switch (event.type) {

@@ -288,50 +288,50 @@ export class ConversationalFormComponent implements OnInit {
       type: "checkbox",
       name: "recommendedFor",
       "cf-label": "Cluster Officials",
-      value: '{value: "CO", label: "Cluster Officials"}'
+      value: '{"value": "CO", "label": "Cluster Officials"}'
     },
     {
       tag: "input",
       type: "checkbox",
       name: "recommendedFor",
       "cf-label": "Teacher",
-      value: '{value: "TE", label: "Teacher"}'
+      value: '{"value": "TE", "label": "Teacher"}'
     },
     {
       tag: "input",
       type: "checkbox",
       name: "categories",
       "cf-questions": "Choose the category which this session belongs to?",
-      "cf-label": "School process",
-      value: '{"label":"School process","value":"School process"}'
+      "cf-label": "School Process",
+      value: '{"label":"School Process","value":"schoolProcess","image": "entity/School-process.png"}'
     },
     {
       tag: "input",
       type: "checkbox",
       name: "categories",
-      "cf-label": "Educational leadership",
-      value: '{"label":"Educational leadership","value":"Educational leadership"}'
+      "cf-label": "Educational Leadership",
+      value: '{"value": "educationLeadership","label": "Education Leadership","image": "entity/Education-leadership.png"}'
     },
     {
       tag: "input",
       type: "checkbox",
       name: "categories",
       "cf-label": "SQAA",
-      value: '{"label":"SQAA", "value":"SQAA"}'
+      value: '{"label":"SQAA", "value":"sqaa","image": "entity/SQAA.jpg"}'
     },
     {
       tag: "input",
       type: "checkbox",
       name: "categories",
       "cf-label": "Communication",
-      value: '{"value": "communication","label": "Communication"}'
+      value: '{"value": "communication","label": "Communication","image": "entity/Communication.png"}'
     },
     {
       tag: "input",
       type: "checkbox",
       name: "categories",
       "cf-label": "Professional Development",
-      value: '{"value": "professionalDevelopment","label": "Professional Development"}'
+      value: '{"value": "professionalDevelopment","label": "Professional Development","image": "entity/Professional-development.png"}'
     },
     {
       tag: "input",

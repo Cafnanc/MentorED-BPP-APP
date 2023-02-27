@@ -40,6 +40,13 @@
           <ng-template #noId>-</ng-template>
         </ion-col>
       </ion-row>
+      <ion-row>
+        <ion-col class="card-header-config">{{"SESSION_VIDEO"|translate}}</ion-col>
+        <ion-col class="card-header-config">
+          <a [href]="recordingUrl"  *ngIf="recordingUrl;else noVideo">Watch</a>
+          <ng-template #noVideo>-</ng-template>
+        </ion-col>
+      </ion-row>
     </div>
     <app-generic-details [sessionData]='detailData'></app-generic-details>
   </div>
