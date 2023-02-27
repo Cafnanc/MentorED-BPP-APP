@@ -89,10 +89,13 @@ export class ProfilePage implements OnInit {
 
   async fetchProfileDetails() {
     var response = await this.profileService.getProfileDetailsFromAPI(this.user.isAMentor,this.user._id);
+    let credentials = _.map(response.credentials,(item)=>{
+      return item.type
+    })
     this.formData.data = response;
     this.formData.data.emailId = response.email.address;
     this.credentialsList = response?.credentials||[]
-    this.isMentorVerified = response.isMentorVerified
+    this.isMentorVerified = credentials.includes('identity')
     if (this.formData?.data?.about) {
       this.showProfileDetails = true;
     } else {

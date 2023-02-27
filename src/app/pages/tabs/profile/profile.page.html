@@ -34,6 +34,10 @@
                                     <ion-col class="card-header-config">Id number</ion-col>
                                     <ion-col class="card-header-config">{{item?.documentId||item?.uid}}</ion-col>
                                 </ion-row>
+                                <ion-row>
+                                    <ion-col class="card-header-config">Verified using</ion-col>
+                                    <ion-col class="card-header-config">{{item.documentType=='aadhaar'?'Aadhaar card':item.documentType=='voter'?'Voter id':'Driving licence'}}</ion-col>
+                                </ion-row>
                                 <ion-row *ngIf="item.url">
                                     <ion-col class="card-header-config">Document</ion-col>
                                     <ion-col class="card-header-config" (click)="openFile(item.url)"><a>View</a></ion-col>
@@ -57,6 +61,10 @@
                                     <ion-col class="card-header-config">Year of passing</ion-col>
                                     <ion-col class="card-header-config">{{item.YOP}}</ion-col>
                                 </ion-row>
+                                <ion-row>
+                                    <ion-col class="card-header-config">Verified using</ion-col>
+                                    <ion-col class="card-header-config">Digilocker</ion-col>
+                                </ion-row>
                                 <ion-row *ngIf="item.url">
                                     <ion-col class="card-header-config">Document</ion-col>
                                     <ion-col class="card-header-config" (click)="openFile(item.url)"><a>View</a></ion-col>
@@ -71,6 +79,10 @@
                                 <ion-row>
                                     <ion-col class="card-header-config">Years of experience</ion-col>
                                     <ion-col class="card-header-config">{{item.experience}}</ion-col>
+                                </ion-row>
+                                <ion-row>
+                                    <ion-col class="card-header-config">Verified using</ion-col>
+                                    <ion-col class="card-header-config">-</ion-col>
                                 </ion-row>
                                 <ion-row *ngIf="item.url">
                                     <ion-col class="card-header-config">Document</ion-col>

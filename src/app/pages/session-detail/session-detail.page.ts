@@ -27,6 +27,7 @@ export class SessionDetailPage implements OnInit {
   sessionTranscript: any
   showSummary:boolean = false
   showTranscript:boolean = false
+  recordingUrl:any
 
   constructor(private localStorage: LocalStorageService, private router: Router,
     private activatedRoute: ActivatedRoute, private sessionService: SessionService,
@@ -128,7 +129,8 @@ export class SessionDetailPage implements OnInit {
       this.summary=response.summary
       this.channelId=response.channelId
       this.inviteLink=response.inviteLink
-      this.sessionTranscript=response.sessionTranscript
+      this.sessionTranscript=response.transcript
+      this.recordingUrl=response.recordingUrl
     }
   }
 
