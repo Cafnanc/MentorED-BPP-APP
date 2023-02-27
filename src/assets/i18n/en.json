@@ -174,5 +174,6 @@
     "SESSION_DISCORD":"Discord",
     "POST_SESSION":"Post session details",
     "ADD_CREDENTIALS":"Add credentials",
-    "SESSION_TRANSCRIPT":"Transcript"
+    "SESSION_TRANSCRIPT":"Transcript",
+    "SESSION_VIDEO":"Video"
 }

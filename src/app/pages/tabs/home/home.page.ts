@@ -28,6 +28,7 @@ export class HomePage implements OnInit {
   sessions;
   sessionsCount = 0;
   status = "published,live";
+  loading:boolean=true
   @ViewChild(IonContent) content: IonContent;
 
   public headerConfig: any = {
@@ -56,6 +57,7 @@ export class HomePage implements OnInit {
     private toast:ToastService) { }
 
   ngOnInit() {
+    this.loading = true
     this.getUser();
     this.userService.userEventEmitted$.subscribe(data => {
       if (data) {
@@ -70,6 +72,7 @@ export class HomePage implements OnInit {
   async ionViewWillEnter() {
     this.obj = { page: this.page, limit: this.limit, searchText: "", status:'published,live' };
     this.createdSessions = await this.sessionService.getAllSessionsAPI(this.obj);
+    this.loading = false
   }
   async eventAction(event) {
     switch (event.type) {

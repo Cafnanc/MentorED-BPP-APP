@@ -58,7 +58,7 @@
       </div>
     </div>
   </div>
-  <div *ngIf="!createdSessions?.data?.length">
+  <div *ngIf="loading">
     <app-skeleton [type]="SKELETON.HOME_SKELETON" [repetition]="4"></app-skeleton>
   </div>
 </ion-content>
